@@ -7,7 +7,12 @@ export const DISHES =
     category: 'mains',
     label:'Hot',
     price:'4.99',
-    comments: [],
+    comments: [{coment: 'Imagine all the eatables, living in conFusion!', autor:'-- John Lemon' , date: 'Oct, 17, 2012'},
+               {coment: 'Sends anyone to heaven, I wish I could get my mother-in-law to eat it!', autor:'-- Paul McVites' , date: 'Sep, 06, 2014'},
+               {coment: 'Eat it, just eat it!', autor:'-- Michael Jaikishan' , date: 'Feb, 14, 2015'},
+               {coment: 'Ultimate, Reaching for the starts!', autor:'-- Ringo Starry' , date:'Dec, 03, 2013'},
+               {coment: 'It´s your birthday, we´re gonna party!', autor:'-- 25 Cent' , date:'Dec, 03, 2011'}
+            ],
     description:'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.'                        },
     {
     id: 1,
@@ -16,7 +21,12 @@ export const DISHES =
     category: 'appetizer',
     label:'',
     price:'1.99',
-    comments: [],
+    comments: [{coment: 'Imagine all the eatables, living in conFusion!', autor:'-- John Lemon' , date: 'Oct, 17, 2012'},
+               {coment: 'Sends anyone to heaven, I wish I could get my mother-in-law to eat it!', autor:'-- Paul McVites' , date: 'Sep, 06, 2014'},
+               {coment: 'Eat it, just eat it!', autor:'-- Michael Jaikishan' , date: 'Feb, 14, 2015'},
+               {coment: 'Ultimate, Reaching for the starts!', autor:'-- Ringo Starry' , date:'Dec, 03, 2013'},
+               {coment: 'It´s your birthday, we´re gonna party!', autor:'-- 25 Cent' , date:'Dec, 03, 2011'}
+            ],
     description:'Deep fried Zucchini coated with mildly spiced Chickpea flour batter accompanied with a sweet-tangy tamarind sauce'                        },
     {
     id: 2,
@@ -39,6 +49,11 @@ export const DISHES =
     category: 'dessert',
     label:'',
     price:'2.99',
-    comments: [],
+    comments: [{coment: 'Imagine all the eatables, living in conFusion!', autor:'-- John Lemon' , date: 'Oct, 17, 2012'},
+               {coment: 'Sends anyone to heaven, I wish I could get my mother-in-law to eat it!', autor:'-- Paul McVites' , date: 'Sep, 06, 2014'},
+               {coment: 'Eat it, just eat it!', autor:'-- Michael Jaikishan' , date: 'Feb, 14, 2015'},
+               {coment: 'Ultimate, Reaching for the starts!', autor:'-- Ringo Starry' , date:'Dec, 03, 2013'},
+               {coment: 'It´s your birthday, we´re gonna party!', autor:'-- 25 Cent' , date:'Dec, 03, 2011'}
+            ],
     description:'A delectable, semi-sweet New York Style Cheese Cake, with Graham cracker crust and spiced with Indian cardamoms'                        }
 ]
