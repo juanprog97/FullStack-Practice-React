@@ -1,12 +1,35 @@
 import React from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media,CardImg } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+
+//implement Function Render Leader with Component Media
+function RenderLeader({details}){
+        return(
+            <div class="Container">
+            <Media>
+                <Media left top >
+                        <Media  src={details.image}/>
+                    </Media>
+                    <Media body>
+                    <Media heading>
+                        {details.name}
+                    </Media>
+                        {details.designation} <br/> <br/>
+                        {details.description}   
+                </Media>
+            </Media>
+            </div>
+        );
+       
+}
+
+// Add RenderLeader
 function About(props) {
 
     const leaders = props.leaders.map((leader) => {
         return (
-            <p>Leader {leader.name}</p>
+            <RenderLeader details ={leader}/>
         );
     });
 
@@ -66,7 +89,7 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {leaders}
+                       {leaders}
                     </Media>
                 </div>
             </div>
