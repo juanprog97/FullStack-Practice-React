@@ -3,6 +3,8 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import React,{Component} from 'react';
+
+import { Control, LocalForm, Errors } from 'react-redux-form';
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -96,7 +98,7 @@ class Header extends Component {
                                 </Label>
                             </FormGroup>
                             <Button type="submit" value="submit" color="primary">Login</Button>
-                        </Form>
+                    </Form>
                         
                     </ModalBody>
                 </Modal>
