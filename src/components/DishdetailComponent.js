@@ -10,7 +10,7 @@ const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
-function RenderDish({dish}){
+function RenderDish({dish}){ 
     return(
         <Card>
         <CardImg top src={dish.image} alt={dish.name} />
@@ -25,16 +25,50 @@ function RenderDish({dish}){
     
 }
 
+function RenderComments({comments, addComment, dishId}){
+    const coment = comments.map((lo)=>{
+        var padding ={
+            paddingTop: '10px',
+            paddingBottom: '10px',
+        }
+        var alig = {
+            marginLeft: '-15px'
+        }
+        return(
+
+                <div className="col-12 md-5 text-left" style={alig}>
+                    <li style={padding}><h7>{lo.comment}</h7></li>
+                    <li style={padding}><h7> <h7>-- </h7>{lo.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(lo.date)))}</h7></li>
+                   
+                </div>
+                
+        );
+    });
+    return(
+        <div className="col-12 col-md-5 m-1 text-left">
+            <h4>Comments</h4>
+            <ul class= "list-unstyled">
+                {coment}
+                <CommentForm dishId={dishId} addComment={addComment} />
+            </ul>
+            
+        </div>
+    );
+    
+}
+
+
 
 class CommentForm extends Component {
     constructor(props){
         super(props);
+        
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
+            isNavOpen: false,
             isModalOpen: false
         };
-        this.toggleModal = this.toggleModal.bind(this);
-
-        
     }
  
     toggleModal() {
@@ -45,7 +79,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        alert("Rating: "+this.rating.value+ " Name: " +this.name+ " Comment: " +this.message);
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
         // event.preventDefault();
     }
     
@@ -59,19 +93,27 @@ class CommentForm extends Component {
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submmit Comment</ModalHeader>
                     <ModalBody>
-                    <LocalForm>
+                    <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                         
                             <FormGroup>
-                                <Label htmlFor="Rating"><h6>Rating</h6></Label>
-                                <Input model=".rating" type="number" id="username" name="username"
-                                    placeholder="1" validateOn="blur" defaultValue='1'
-                                     min={1} max={5} />
+                                <Label htmlFor="rating"><h6>Rating</h6></Label>
+                                <Control.select model=".rating"  id="rating"
+                                    placeholder="1" validateOn="blur" defaultValue='1' className="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </Control.select>
+                                     
+                                     
+                                     
                                 </FormGroup>
                                 
                                 {/* Task3 */}
                                 <FormGroup>
-                                <Label htmlFor="name"><h6>Your Name</h6></Label>
-                                    <Control.text model = "name.e" type="name" id="name" name="name"
+                                <Label htmlFor="author"><h6>Your Name</h6></Label>
+                                    <Control.text model = ".author" type="name" id="author"
                                                 className="form-control"
                                                 placeholder="Your Name"
                                                 validators={{
@@ -97,11 +139,11 @@ class CommentForm extends Component {
                             
                                 <FormGroup>
                                     <Label htmlFor="Comment"><h6>Comment</h6></Label>
-                                     <Control.textarea model=".message" id="message" name="message"
+                                     <Control.textarea model=".comment" id="comment" 
                                         rows="6"
                                         className="form-control" />
                                 </FormGroup>
-                                <Button type="submit" value="submit" color="primary">Submit</Button>
+                                <Button type="submit" className="bg-primary">Submit</Button>
                        
                     </LocalForm>
                     </ModalBody>
@@ -111,37 +153,7 @@ class CommentForm extends Component {
     }
 }
  
-function RenderComments({comments}){
-    const coment = comments.map((lo)=>{
-        var padding ={
-            paddingTop: '10px',
-            paddingBottom: '10px',
-        }
-        var alig = {
-            marginLeft: '-15px'
-        }
-        return(
 
-                <div className="col-12 md-5 text-left" style={alig}>
-                    <li style={padding}><h7>{lo.comment}</h7></li>
-                    <li style={padding}><h7> <h7>-- </h7>{lo.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(lo.date)))}</h7></li>
-                   
-                </div>
-                
-        );
-    });
-    return(
-        <div className="col-12 col-md-5 m-1 text-left">
-            <h4>Comments</h4>
-            <ul class= "list-unstyled">
-                {coment}
-                <CommentForm/>
-            </ul>
-            
-        </div>
-    );
-    
-}
 
 
 const DishDetail = (props)=>{
@@ -163,7 +175,10 @@ const DishDetail = (props)=>{
                         <div  className="col-12 col-md-5 m-1">
                             <RenderDish dish={props.dish}/>
                         </div>
-                        <RenderComments comments={props.comments}/>
+                        <RenderComments comments={props.comments}
+                            addComment={props.addComment}
+                            dishId={props.dish.id}
+                        />
                         
                     </div>
                 </div>
