@@ -4,6 +4,7 @@ import { Card, CardImg, CardText, CardBody,
     Form, FormGroup, Input, Label,Row} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 import { Control, Errors, LocalForm } from 'react-redux-form';
 
 const required = (val) => val && val.length;
@@ -13,7 +14,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
 function RenderDish({dish}){ 
     return(
         <Card>
-        <CardImg top src={dish.image} alt={dish.name} />
+        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
         <CardBody>
             <CardTitle className="text-left">
             <h5>{dish.name}</h5>

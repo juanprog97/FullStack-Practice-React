@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import Menu from './MenuComponents';
-import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
-import { LEADERS } from '../shared/leaders';
-import { PROMOTIONS} from '../shared/promotions';
 import Contact from './ContactComponent';
 import Header from './HeaderComponent';
 import DishDetail from './DishdetailComponent'
@@ -33,6 +29,7 @@ const mapDispatchToProps = dispatch => ({
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos())
+  
 });
 class Main extends Component {
 
