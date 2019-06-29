@@ -46,7 +46,7 @@ export const fetchDishes = () => (dispatch) => {
 
     dispatch(dishesLoading(true));
 
-    return fetch(baseUrl + 'dishees')
+    return fetch(baseUrl + 'dishes')
     .then(response => {
         if (response.ok) {
           return response;
@@ -68,6 +68,24 @@ export const fetchDishes = () => (dispatch) => {
     .catch(error => dispatch(dishesFailed(error.message)));
 };
 
+export const dishesLoading = () => ({
+  type: ActionTypes.DISHES_LOADING
+});
+export const dishesFailed = (errmess) => ({
+  type: ActionTypes.DISHES_FAILED,
+  payload: errmess
+});
+
+export const addDishes = (dishes) => ({
+  type: ActionTypes.ADD_DISHES,
+  payload: dishes
+});
+
+
+
+
+
+
 
 export const fetchComments = () => (dispatch) => {    
     return fetch(baseUrl + 'comments')
@@ -88,6 +106,19 @@ export const fetchComments = () => (dispatch) => {
     .then(comments => dispatch(addComments(comments)))
     .catch(error => dispatch(commentsFailed(error.message)));
 };
+
+
+export const commentsFailed = (errmess) => ({
+  type: ActionTypes.COMMENTS_FAILED,
+  payload: errmess
+});
+
+export const addComments = (comments) => ({
+  type: ActionTypes.ADD_COMMENTS,
+  payload: comments
+});
+
+
 
 
 export const fetchPromos = () => (dispatch) => {
@@ -115,28 +146,9 @@ export const fetchPromos = () => (dispatch) => {
 
 
 
-export const dishesLoading = () => ({
-    type: ActionTypes.DISHES_LOADING
-});
-export const dishesFailed = (errmess) => ({
-    type: ActionTypes.DISHES_FAILED,
-    payload: errmess
-});
 
-export const addDishes = (dishes) => ({
-    type: ActionTypes.ADD_DISHES,
-    payload: dishes
-});
 
-export const commentsFailed = (errmess) => ({
-    type: ActionTypes.COMMENTS_FAILED,
-    payload: errmess
-});
 
-export const addComments = (comments) => ({
-    type: ActionTypes.ADD_COMMENTS,
-    payload: comments
-});
 
 
 
