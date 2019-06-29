@@ -26,7 +26,7 @@ function RenderDish({dish}){
     
 }
 
-function RenderComments({comments, addComment, dishId}){
+function RenderComments({comments, postComment, dishId}){
     const coment = comments.map((lo)=>{
         var padding ={
             paddingTop: '10px',
@@ -50,7 +50,7 @@ function RenderComments({comments, addComment, dishId}){
             <h4>Comments</h4>
             <ul class= "list-unstyled">
                 {coment}
-                <CommentForm dishId={dishId} addComment={addComment} />
+                <CommentForm dishId={dishId} postComment={postComment} />
             </ul>
             
         </div>
@@ -80,7 +80,7 @@ class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
         // event.preventDefault();
     }
     
@@ -197,7 +197,7 @@ const DishDetail = (props)=>{
                             <RenderDish dish={props.dish}/>
                         </div>
                         <RenderComments comments={props.comments}
-                            addComment={props.addComment}
+                           postComment={props.postComment}
                             dishId={props.dish.id}
                         />
                         

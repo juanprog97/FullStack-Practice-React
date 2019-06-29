@@ -1,28 +1,61 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
-import { Control, Error, LocalForm } from 'react-redux-form';
 
-export const addComment = (dishId, rating, author, comment) => ({
-    type: ActionTypes.ADD_COMMENT,
-    payload: {
-        dishId: dishId,
-        rating: rating,
-        author: author,
-        comment: comment
-    }
+
+export const addComment = (comment) => ({
+  type: ActionTypes.ADD_COMMENT,
+  payload: comment
 });
+
+export const postComment = (dishId, rating, author, comment) => (dispatch) => {
+
+  const newComment = {
+      dishId: dishId,
+      rating: rating,
+      author: author,
+      comment: comment
+  };
+  newComment.date = new Date().toISOString();
+  
+  return fetch(baseUrl + 'comments', {
+      method: "POST",
+      body: JSON.stringify(newComment),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "same-origin"
+  })
+  .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+    error => {
+          throw error;
+    })
+  .then(response => response.json())
+  .then(response => dispatch(addComment(response)))
+  .catch(error =>  { console.log('post comments', error.message); alert('Your comment could not be posted\nError: '+error.message); });
+};
 
 export const fetchDishes = () => (dispatch) => {
 
     dispatch(dishesLoading(true));
 
-    return fetch(baseUrl + 'dishes')
+    return fetch(baseUrl + 'dishees')
     .then(response => {
         if (response.ok) {
           return response;
         } else {
+          console.log("sda")
           var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          
           error.response = response;
+          
           throw error;
         }
       },
@@ -33,7 +66,7 @@ export const fetchDishes = () => (dispatch) => {
     .then(response => response.json())
     .then(dishes => dispatch(addDishes(dishes)))
     .catch(error => dispatch(dishesFailed(error.message)));
-}
+};
 
 
 export const fetchComments = () => (dispatch) => {    
@@ -78,7 +111,7 @@ export const fetchPromos = () => (dispatch) => {
     .then(response => response.json())
     .then(promos => dispatch(addPromos(promos)))
     .catch(error => dispatch(promosFailed(error.message)));
-}
+};
 
 
 
