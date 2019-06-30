@@ -89,7 +89,6 @@ class CommentForm extends Component {
             <div>
 
                 <Button outline onClick={this.toggleModal}><span className="fa fa-pencil fa-md"></span> Submit Comment</Button>
-                {/* Task1 and task2 */}
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submmit Comment</ModalHeader>
                     <ModalBody>
@@ -109,8 +108,6 @@ class CommentForm extends Component {
                                      
                                      
                                 </FormGroup>
-                                
-                                {/* Task3 */}
                                 <FormGroup>
                                 <Label htmlFor="author"><h6>Your Name</h6></Label>
                                     <Control.text model = ".author" type="name" id="author"
