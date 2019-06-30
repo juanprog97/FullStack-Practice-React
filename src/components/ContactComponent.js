@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Control, Form, Errors, actions } from 'react-redux-form';
 import { Breadcrumb, BreadcrumbItem,
-    Button, Row, Col, Label } from 'reactstrap';
+    Button, Row, Col, Label ,FormGroup,Input} from 'reactstrap';
 
     const required = (val) => val && val.length;
     const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -13,18 +13,28 @@ import { Breadcrumb, BreadcrumbItem,
 class Contact extends Component{
     constructor(props) {
         super(props);
+        this.state = {
+            firstname: '',
+            lastname: '',
+            telnum: '',
+            email: '',
+            agree: false,
+            contactType: 'Tel.',
+            message: ''
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
         
     }
+    
 
 
 
 
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        alert('Thank you for you feedback!' + JSON.stringify(values));
+        
+        this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email,values.agree,values.contactType,values.message)
         this.props.resetFeedbackForm();
-        // event.preventDefault();
     }
     
 
@@ -165,6 +175,28 @@ class Contact extends Component{
                                      />
                                 </Col>
                             </Row>
+                            
+                            <Row className="form-group">
+                                <Col md={{size: 6, offset: 2}}>
+                                    <div className="form-check">
+                                        <Label check>
+                                            <Control.checkbox model=".agree" name="agree"
+                                                className="form-check-input"
+                                                 /> {' '}
+                                                <strong>May we contact you?</strong>
+                                        </Label>
+                                    </div>
+                                </Col>
+                                <Col md={{size: 3, offset: 1}}>
+                                    <Control.select model=".contactType" name="contactType"
+                                        className="form-control">
+                                        <option>Tel.</option>
+                                        <option>Email</option>
+                                    </Control.select>
+                                </Col>
+                            </Row>
+
+
                             <Row className="form-group">
                                 <Label htmlFor="message" md={2}>Your Feedback</Label>
                                 <Col md={10}>
